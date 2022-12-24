@@ -2,19 +2,89 @@
 //
 
 #include <iostream>
+#include "User.h"
+#include "Message.h"
+#include <vector>
+using namespace std;
 
-int main()
+vector<User>UserSpisok;   //список зарегистрированных пользователей
+
+bool FindLogin(string login)					//Метод проверки логина
 {
-    std::cout << "Hello World!\n";
+	bool j = false;
+	for (int i = 0; i < size(UserSpisok); i++) {
+		if (UserSpisok[i].getLogin() == login) {
+			j = true;
+
+			return j;
+			break;
+		}
+	}return j;
+}
+void NewUser() {									//метод создания нового пользователя чата
+
+	string name;
+	string login;
+	string pass;
+	cout << "Введите данные для регистрации\n";
+	cout << "Имя: ";
+	
+	cin >> name;
+	
+	cout << "Логин: ";
+
+	bool l = true;
+	while (l) {
+		cin >> login;
+		if (FindLogin(login)) {
+			cout << "Данный логин уже занят выберите другой!\n";
+			cout << "Введите логин: ";
+		}
+		else {
+			l = false;
+		}
+	}
+	cout << "Пароль: ";
+	cin >> pass;
+
+	User U(name, login, pass);
+
+	UserSpisok.push_back(U);
+	cout << "Пользователь успешно зарегистрирован!\n\n";
 }
 
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
 
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
+
+
+int main(){
+	setlocale(LC_ALL, "Rus");
+	
+	while (true) {
+		int a;
+
+		cout << "Введиде действие: \n1 - вход\n2 - регистрация\n3 - выход\n";
+		cin >> a;
+		switch (a)
+		{
+		case 1:								//вход по логину и паролю
+
+		case 2:								// регистрация нового пользователя
+			NewUser();						//вызываем метод добавления нового пользователя
+			continue;
+		case 3:
+			break;
+
+		default:
+			cout << "Неверный ВВОД!" << endl;
+			continue;
+			
+		}
+		break;
+
+		
+	}
+	for (int i = 0; i < size(UserSpisok); ++i) {
+		cout << (i + 1) << ". " << UserSpisok[i].getName() << endl;
+	}
+	
+}
