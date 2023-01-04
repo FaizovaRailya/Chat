@@ -3,7 +3,15 @@
 using namespace std;
 
 class Message {
-	string text;
-	string fromMessage;
-	string toMessage;
-};
+	string text_;
+	string fromMessage_;
+	string toMessage_;
+public:
+	Message(const string& fromMessage, const string& toMessage, const string& text); 
+	~Message() = default; 
+	string& getText();
+	string& getFromMessage();
+	string& getToMessaget(); 
+
+
+}; 

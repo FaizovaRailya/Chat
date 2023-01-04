@@ -1,4 +1,5 @@
 #include "User.h"
+#include "Message.h"
 #include <vector>
 using namespace std;
 
@@ -21,6 +22,12 @@ string& User::getLogin() {
 string& User::getPassword() {
 	return password_;
 }
+
+
+
+
+
+
 
 
 

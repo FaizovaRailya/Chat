@@ -13,6 +13,5 @@ public:
 	string& getName();  
 	string& getLogin();
 	string& getPassword();
-	//bool FindLogin(string login);
-	//void NewUser();
+	
 };
