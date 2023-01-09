@@ -20,16 +20,3 @@ string& User::getLogin() {
 string& User::getPassword() {
 	return password_;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

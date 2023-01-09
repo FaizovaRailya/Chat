@@ -4,19 +4,20 @@
 #include <vector>
 #include <exception>
 
-class Methods {
-	vector<User>UserSpisok;				//список зарегистрированных пользователей
+template <typename T> class Methods {
+	vector<User> UserSpisok;				//список зарегистрированных пользователей
 	vector<Message> messageList;		//создаем вектор, который хранит сообщения в чате
-
+	
 public:
-	bool FindLogin(string login);						//метод проверки логина
-	void NewUser();										//метод создания нового пользователя
-	bool UserSearch(string login, string password);     //метод поиска пользователя по логину и паролю
-	void PrintNamesUsers();							    //метод получения списка зарегестрированных пользователей
-	int FindUserinUserSpisok(string name);				//метод проверяет корректно ли введено имя
-	bool IsEmpty();										//метод проверки наличия сообщений
-	void setShowChat();									//метод чтения сообщений
-	void setAddMessage();								//метод добавления сообщения в массив
+	int userLogin = 0;									// для индекса текущего логина
+	bool FindLogin(T login);							//проверка логина
+	void NewUser();										//создание нового пользователя
+	bool UserSearch(T login, T password);				//поиск пользователя по логину и паролю
+	void PrintNamesUsers();							    //получение списка зарегестрированных пользователей
+	int FindUserinUserSpisok(string name);				//проверка корректно ли введено имя
+	bool IsEmpty();										//проверка наличия сообщений
+	void setShowChat();									//чтение сообщений
+	void setAddMessage();								//добавление сообщения в массив
 };
 
 class LoginExp : public exception {			//исключение если введен логин "all"

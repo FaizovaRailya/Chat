@@ -1,5 +1,5 @@
 #pragma once
-#include<string>
+#include <string>
 using namespace std;
 
 class Message {
@@ -8,7 +8,7 @@ class Message {
 	string toMessage_;
 public:
 	Message(const string& fromMessage, const string& toMessage, const string& text);
-	//~Message() = default; 
+	~Message() = default; 
 	string& getText();
 	string& getFromMessage();
 	string& getToMessage();

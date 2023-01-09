@@ -6,14 +6,14 @@
 #include "User.h"
 #include "Message.h"
 #include "Methods.h"
-
+#include "Methods.cpp"
 
 using namespace std;
 
 int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	Methods methods;
+	Methods<string> methods;
 	bool f = true;
 	while (f) {
 		char a;

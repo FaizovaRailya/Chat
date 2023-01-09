@@ -1,11 +1,9 @@
 #include <iostream>
 #include "Methods.h"
-#include "User.h"
-
 using namespace std;
 
-int userLogin = 0;
-bool Methods::FindLogin(string login) {						//Метод проверки логина
+template<typename T>
+bool Methods<T>::FindLogin(T login){						//Метод проверки логина
 	bool j = false;
 	for (int i = 0; i < UserSpisok.size(); i++) {
 		if (UserSpisok[i].getLogin() == login) {
@@ -16,7 +14,7 @@ bool Methods::FindLogin(string login) {						//Метод проверки логина
 	}return j;
 }
 
-void Methods::NewUser() {									//метод создания нового пользователя
+template<typename T> void Methods<T>::NewUser() {									//метод создания нового пользователя
 	string name;
 	string login;
 	string password;
@@ -49,9 +47,10 @@ void Methods::NewUser() {									//метод создания нового пользователя
 	cout << "Пользователь зарегистрирован!\n\n";
 }
 
-
-bool Methods::UserSearch(string login, string password) {	//метод поиска пользователя по логину и паролю	
+template<typename T>
+bool Methods<T>::UserSearch(T login, T password){								//метод поиска пользователя по логину и паролю	
 	int i = 0;
+	//int userLogin = 0;
 	bool flag = false;
 	while (i < UserSpisok.size()) {
 		string l = UserSpisok[i].getLogin();
@@ -71,13 +70,13 @@ bool Methods::UserSearch(string login, string password) {	//метод поиска пользов
 	return flag;
 }
 
-void Methods::PrintNamesUsers() {							//метод получения списка зарегестрированных пользователей
+template<typename T> void Methods<T>::PrintNamesUsers() {							//метод получения списка зарегестрированных пользователей
 	for (int i = 0; i < UserSpisok.size(); ++i) {
 		cout << UserSpisok[i].getName() << endl;
 	}
 }
 
-int Methods::FindUserinUserSpisok(string name) {			//метод проверяет корректно ли введено имя
+template<typename T> int Methods<T>::FindUserinUserSpisok(string name) {			//метод проверяет корректно ли введено имя
 	for (int i = 0; i < UserSpisok.size(); ++i) {
 		if (UserSpisok[i].getName() == name) {
 			return i;
@@ -85,12 +84,13 @@ int Methods::FindUserinUserSpisok(string name) {			//метод проверяет корректно л
 	}return -1;
 }
 
-bool Methods::IsEmpty() {									//метод проверки наличия сообщений
+template<typename T>
+bool Methods<T>::IsEmpty() {														//метод проверки наличия сообщений
 	bool i = true;
 	if (messageList.size() > 0) { i = false; }	return i;
 }
 
-void Methods::setShowChat() {								//метод чтения сообщений
+template<typename T> void Methods<T>::setShowChat() {								//метод чтения сообщений
 	if (IsEmpty()) {
 		cout << "У вас еще нет входящих сообщений!\n" << endl;
 	}
@@ -115,7 +115,7 @@ void Methods::setShowChat() {								//метод чтения сообщений
 	}
 }
 
-void Methods::setAddMessage(){								  //метод добавления сообщения в массив
+template<typename T> void Methods<T>::setAddMessage(){								 //метод добавления сообщения в массив
 
 	string inputName;
 	string message;
