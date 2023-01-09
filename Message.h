@@ -1,7 +1,8 @@
 #pragma once
+#include<string>
 using namespace std;
 
-class Message{
+class Message {
 	string text_;
 	string fromMessage_;
 	string toMessage_;

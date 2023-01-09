@@ -2,26 +2,28 @@
 //
 
 #include <iostream>
+#include <Windows.h>
 #include "User.h"
 #include "Message.h"
 #include "Methods.h"
+
+
 using namespace std;
 
 int main() {
-	setlocale(LC_ALL, "Rus");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
 	Methods methods;
 	bool f = true;
 	while (f) {
 		char a;
-		cout << "----Введиде действие:----\n1 - вход\n2 - регистрация\n0 - выход\n";
+		cout << "------Введиде действие:------\n1 - вход\n2 - регистрация\n0 - выход\n";
 		cin >> a;
+		cin.ignore(100, '\n');
 		string log, pas;
 
-
-		//int t = 0;
-
 		switch (a) {
-		case '1':								//вход по логину и паролю
+		case '1':													//вход по логину и паролю
 			std::cout << "----Введите----\nЛогин: ";
 			cin >> log;
 			std::cout << "Пароль: ";
@@ -32,7 +34,7 @@ int main() {
 					cout << "\n------Введите действиe:------\n1 - Прочитать сообщениe\n2 - Написать сообщение\n0 - Выйти\n";
 					char b;
 					cin >> b;
-
+					cin.ignore(100, '\n');
 					switch (b) {
 					case '1':										//прочитать сообщения					
 						methods.setShowChat();
@@ -46,21 +48,26 @@ int main() {
 						f1 = false;
 						continue;
 					default:
-						cout << "Неверный ВВОД!" << endl;
+						cout << "Неверный ВВОД!\n" << endl;
 						break;
 					}
 				}
 			}
 			break;
 		case '2':								// регистрация нового пользователя
-			methods.NewUser();					//вызываем метод добавления нового пользователя
+			try {
+				methods.NewUser();					//вызываем метод добавления нового пользователя
+			}
+			catch (exception& e) {
+				cout << e.what();
+			}
 			break;
 		case '0':
 			f = false;
 			break;
 
 		default:
-			cout << "Неверный ВВОД!" << endl;
+			cout << "Неверный ВВОД!\n" << endl;
 			break;
 		}
 	}

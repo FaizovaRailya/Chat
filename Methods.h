@@ -2,6 +2,7 @@
 #include "User.h"
 #include "Message.h"
 #include <vector>
+#include <exception>
 
 class Methods {
 	vector<User>UserSpisok;				//список зарегистрированных пользователей
@@ -16,4 +17,17 @@ public:
 	bool IsEmpty();										//метод проверки наличия сообщений
 	void setShowChat();									//метод чтения сообщений
 	void setAddMessage();								//метод добавления сообщения в массив
+};
+
+class LoginExp : public exception {			//исключение если введен логин "all"
+public:
+	const char* what() const noexcept override {
+		return "ERROR: Логин занят!\n\n";
+	}
+};
+class NameExp : public exception {			//исключение если введено имя "all"
+public:
+	const char* what()const noexcept override {
+		return "ERROR: Имя пользователя занято!\n\n";
+	}
 };

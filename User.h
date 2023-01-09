@@ -9,8 +9,9 @@ class User {
 	string password_;
 
 public:
+	//User() = default;
 	User(string name, string login, string password);
-	//~User();
+	//~User() = default;
 	string& getName();
 	string& getLogin();
 	string& getPassword();

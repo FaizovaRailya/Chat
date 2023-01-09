@@ -1,7 +1,6 @@
 #include <iostream>
 #include "User.h"
 #include "Message.h"
-
 using namespace std;
 
 User::User(string name, string login, string password) {
@@ -9,8 +8,6 @@ User::User(string name, string login, string password) {
 	login_ = login;
 	password_ = password;
 }
-
-//User::~User(){}
 
 string& User::getName() {
 	return name_;
