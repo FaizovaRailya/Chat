@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Methods.h"
 #include "User.h"
+
 using namespace std;
 
 int userLogin = 0;
@@ -19,22 +20,27 @@ void Methods::NewUser() {									//метод создания нового пользователя
 	string name;
 	string login;
 	string password;
-	cout << "----Введите данные для регистрации----\n";
+	cout << "------Введите данные для регистрации------\n";
 	cout << "Имя: ";
 	cin >> name;
+	if (name == "all") {			// исключение
+		throw NameExp();
+	}
 	cout << "Логин: ";
-
 	bool l = true;
 	while (l) {
 		cin >> login;
+		if (login == "all") {       // исключение
+			throw LoginExp();
+		}
 		if (FindLogin(login)) {
-			cout << "Данный логин уже занят выберите другой!\n";
-			cout << "------ Введите ------\nЛогин: ";
+			cout << "Данный логин уже занят выберите другой!\n\n";
+			cout << "-------- Введите --------\nЛогин: ";
 		}
 		else {
 			l = false;
 		}
-	}
+	}	
 	cout << "Пароль: ";
 	cin >> password;
 
@@ -42,6 +48,7 @@ void Methods::NewUser() {									//метод создания нового пользователя
 	UserSpisok.push_back(U);					// добавляем пользователя в массив
 	cout << "Пользователь зарегистрирован!\n\n";
 }
+
 
 bool Methods::UserSearch(string login, string password) {	//метод поиска пользователя по логину и паролю	
 	int i = 0;
@@ -56,7 +63,7 @@ bool Methods::UserSearch(string login, string password) {	//метод поиска пользов
 			return flag;
 			break;
 		}
-		else { ++i; }
+		else { ++i;}
 	}
 	if (flag == false) {
 		cout << "\nНеверный логин или пароль!!!\n";
@@ -70,7 +77,7 @@ void Methods::PrintNamesUsers() {							//метод получения списка зарегестрирован
 	}
 }
 
-int Methods::FindUserinUserSpisok(string name) {				//метод проверяет корректно ли введено имя
+int Methods::FindUserinUserSpisok(string name) {			//метод проверяет корректно ли введено имя
 	for (int i = 0; i < UserSpisok.size(); ++i) {
 		if (UserSpisok[i].getName() == name) {
 			return i;
@@ -80,39 +87,39 @@ int Methods::FindUserinUserSpisok(string name) {				//метод проверяет корректно 
 
 bool Methods::IsEmpty() {									//метод проверки наличия сообщений
 	bool i = true;
-	if (size(messageList) > 0) { i = false; }	return i;
+	if (messageList.size() > 0) { i = false; }	return i;
 }
 
 void Methods::setShowChat() {								//метод чтения сообщений
 	if (IsEmpty()) {
-		cout << "У вас еще нет входящих сообщений!" << endl;
+		cout << "У вас еще нет входящих сообщений!\n" << endl;
 	}
 	else {
-		std::string from;
-		std::string to;
-		std::cout << "------Chat------" << std::endl;
-		for (auto& mess : messageList) {
-			if (UserSpisok[userLogin].getLogin() == mess.getFromMessage() || UserSpisok[userLogin].getLogin() == mess.getToMessage() || mess.getToMessage() == "all") {//если текущий пользователь
-				from = (UserSpisok[userLogin].getLogin() == mess.getFromMessage()) ? "Меня" : mess.getFromMessage();
-				if (mess.getToMessage() == "all") {			//сообщение всем пользователям
+		string from;
+		string to;
+		cout << "--------ЧАТ--------\n";
+		for (int i = 0; i < messageList.size(); ++i) {
+			if (UserSpisok[userLogin].getName() == messageList[i].getFromMessage() || UserSpisok[userLogin].getName() == messageList[i].getToMessage() || messageList[i].getToMessage() == "all") {//если текущий пользователь
+				from = (UserSpisok[userLogin].getName() == messageList[i].getFromMessage()) ? "Меня" : messageList[i].getFromMessage();
+				if (messageList[i].getToMessage() == "all") {			//сообщение всем пользователям
 					to = "Всем";
 				}
 				else {
-					to = (UserSpisok[userLogin].getLogin() == mess.getToMessage()) ? "Мне" : mess.getToMessage();
+					to = (UserSpisok[userLogin].getName() == messageList[i].getToMessage()) ? "Мне" : messageList[i].getToMessage();
 					//если текущее имя равно to, то отправляем сообщение самому себе, если нет, то получаем имя пользователя и присваиваем его значение полю to
 				}
-				std::cout << "Сообщение от " << from << " кому " << to << ": " << mess.getText() << endl;
+				cout << "Сообщение от " << from << " кому " << to << ": " << messageList[i].getText() << endl;
 			}
 		}
-		std::cout << "-------------------" << endl;
+		cout << "-------------------" << endl;
 	}
 }
 
-void Methods::setAddMessage()								  //метод добавления сообщения в массив
-{
+void Methods::setAddMessage(){								  //метод добавления сообщения в массив
+
 	string inputName;
 	string message;
-	cout << "Введите имя кому отправить сообщение:\n ";
+	cout << "Введите имя кому отправить сообщение:\n";
 	PrintNamesUsers();									  //выводим список пользователей
 	cout << "all - отправить всем\n";
 
@@ -140,4 +147,6 @@ void Methods::setAddMessage()								  //метод добавления сообщения в массив
 		}
 	}
 }
+
+
 
