@@ -17,6 +17,7 @@ int main() {
 	bool f = true;
 	while (f) {
 		char a;
+		cout << "Количество пользователей: " << methods.sizeUserSpisok() << endl;
 		cout << "------Введиде действие:------\n1 - вход\n2 - регистрация\n0 - выход\n";
 		cin >> a;
 		cin.ignore(100, '\n');
@@ -24,9 +25,9 @@ int main() {
 
 		switch (a) {
 		case '1':													//вход по логину и паролю
-			std::cout << "----Введите----\nЛогин: ";
+			cout << "----Введите----\nЛогин: ";
 			cin >> log;
-			std::cout << "Пароль: ";
+			cout << "Пароль: ";
 			cin >> pas;
 			if (methods.UserSearch(log, pas)) {
 				bool f1 = true;
@@ -35,9 +36,32 @@ int main() {
 					char b;
 					cin >> b;
 					cin.ignore(100, '\n');
+
 					switch (b) {
 					case '1':										//прочитать сообщения					
-						methods.setShowChat();
+						if (methods.IsEmpty()) {
+							cout << "У вас еще нет входящих сообщений!\n" << endl;
+						}
+						else {
+							cout << "\n------Введите действиe:------\n1 - Личные\n2 - Общие\n0 - Выйти\n";
+							char d;
+							cin >> d;
+							cin.ignore(100, '\n');
+
+							switch (d)
+							{
+							case '1':
+								methods.setPrivateShowChat();
+								continue;
+							case '2':
+								methods.setAllShowChat();
+							case '0':
+								continue;
+							default:
+								cout << "Неверный ВВОД!\n" << endl;
+								break;
+							}
+						}
 						break;
 
 					case '2':										//написать сообщение

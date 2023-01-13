@@ -16,8 +16,10 @@ public:
 	void PrintNamesUsers();							    //получение списка зарегестрированных пользователей
 	int FindUserinUserSpisok(string name);				//проверка корректно ли введено имя
 	bool IsEmpty();										//проверка наличия сообщений
-	void setShowChat();									//чтение сообщений
+	void setPrivateShowChat();							//чтение личных сообщений
+	void setAllShowChat();								//чтение общих сообщений
 	void setAddMessage();								//добавление сообщения в массив
+	int sizeUserSpisok();								//количество зарегистрированных пользователей
 };
 
 class LoginExp : public exception {			//исключение если введен логин "all"
@@ -26,6 +28,7 @@ public:
 		return "ERROR: Логин занят!\n\n";
 	}
 };
+
 class NameExp : public exception {			//исключение если введено имя "all"
 public:
 	const char* what()const noexcept override {

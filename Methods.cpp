@@ -3,7 +3,7 @@
 using namespace std;
 
 template<typename T>
-bool Methods<T>::FindLogin(T login){						//Метод проверки логина
+bool Methods<T>::FindLogin(T login){								//Метод проверки логина
 	bool j = false;
 	for (int i = 0; i < UserSpisok.size(); i++) {
 		if (UserSpisok[i].getLogin() == login) {
@@ -14,7 +14,7 @@ bool Methods<T>::FindLogin(T login){						//Метод проверки логина
 	}return j;
 }
 
-template<typename T> void Methods<T>::NewUser() {									//метод создания нового пользователя
+template<typename T> void Methods<T>::NewUser() {					//метод создания нового пользователя
 	string name;
 	string login;
 	string password;
@@ -48,7 +48,7 @@ template<typename T> void Methods<T>::NewUser() {									//метод создания новог
 }
 
 template<typename T>
-bool Methods<T>::UserSearch(T login, T password){								//метод поиска пользователя по логину и паролю	
+bool Methods<T>::UserSearch(T login, T password){					//метод поиска пользователя по логину и паролю	
 	int i = 0;
 	//int userLogin = 0;
 	bool flag = false;
@@ -70,13 +70,13 @@ bool Methods<T>::UserSearch(T login, T password){								//метод поиска пользова
 	return flag;
 }
 
-template<typename T> void Methods<T>::PrintNamesUsers() {							//метод получения списка зарегестрированных пользователей
+template<typename T> void Methods<T>::PrintNamesUsers() {				    //метод получения списка зарегестрированных пользователей
 	for (int i = 0; i < UserSpisok.size(); ++i) {
 		cout << UserSpisok[i].getName() << endl;
 	}
 }
 
-template<typename T> int Methods<T>::FindUserinUserSpisok(string name) {			//метод проверяет корректно ли введено имя
+template<typename T> int Methods<T>::FindUserinUserSpisok(string name) {	//метод проверяет корректно ли введено имя
 	for (int i = 0; i < UserSpisok.size(); ++i) {
 		if (UserSpisok[i].getName() == name) {
 			return i;
@@ -85,38 +85,46 @@ template<typename T> int Methods<T>::FindUserinUserSpisok(string name) {			//мет
 }
 
 template<typename T>
-bool Methods<T>::IsEmpty() {														//метод проверки наличия сообщений
+bool Methods<T>::IsEmpty() {												//метод проверки наличия сообщений
 	bool i = true;
 	if (messageList.size() > 0) { i = false; }	return i;
 }
 
-template<typename T> void Methods<T>::setShowChat() {								//метод чтения сообщений
-	if (IsEmpty()) {
-		cout << "У вас еще нет входящих сообщений!\n" << endl;
-	}
-	else {
-		string from;
-		string to;
-		cout << "--------ЧАТ--------\n";
-		for (int i = 0; i < messageList.size(); ++i) {
-			if (UserSpisok[userLogin].getName() == messageList[i].getFromMessage() || UserSpisok[userLogin].getName() == messageList[i].getToMessage() || messageList[i].getToMessage() == "all") {//если текущий пользователь
-				from = (UserSpisok[userLogin].getName() == messageList[i].getFromMessage()) ? "Меня" : messageList[i].getFromMessage();
-				if (messageList[i].getToMessage() == "all") {			//сообщение всем пользователям
-					to = "Всем";
-				}
-				else {
-					to = (UserSpisok[userLogin].getName() == messageList[i].getToMessage()) ? "Мне" : messageList[i].getToMessage();
-					//если текущее имя равно to, то отправляем сообщение самому себе, если нет, то получаем имя пользователя и присваиваем его значение полю to
-				}
-				cout << "Сообщение от " << from << " кому " << to << ": " << messageList[i].getText() << endl;
-			}
+template<typename T> void Methods<T>::setPrivateShowChat() {				//метод чтения личных сообщений
+	string from;
+	string to;
+	cout << "------------ЧАТ------------\n";
+	for (int i = 0; i < messageList.size(); ++i) {
+		if (UserSpisok[userLogin].getName() == messageList[i].getFromMessage() || UserSpisok[userLogin].getName() == messageList[i].getToMessage() || messageList[i].getToMessage() == "all") {//если текущий пользователь
+			from = (UserSpisok[userLogin].getName() == messageList[i].getFromMessage()) ? "Меня" : messageList[i].getFromMessage();
+
+			to = (UserSpisok[userLogin].getName() == messageList[i].getToMessage()) ? "Мне" : messageList[i].getToMessage();
+			//если текущее имя равно to, то отправляем сообщение самому себе, если нет, то получаем имя пользователя и присваиваем его значение полю to
 		}
-		cout << "-------------------" << endl;
+		if (messageList[i].getToMessage() != "all")
+			cout << "от " << from << " кому " << to << ": " << messageList[i].getText() << endl;
+
 	}
+	cout << "-------------------------" << endl;
+
 }
 
-template<typename T> void Methods<T>::setAddMessage(){								 //метод добавления сообщения в массив
+template<typename T> void Methods<T>::setAllShowChat(){							// метод чтения общих сообщений
+	string from;
+	string to;
+	cout << "-----------ОБЩИЙ ЧАТ-----------\n";
+	for (int i = 0; i < messageList.size(); ++i) {
+		if (UserSpisok[userLogin].getName() == messageList[i].getFromMessage() || UserSpisok[userLogin].getName() == messageList[i].getToMessage() || messageList[i].getToMessage() == "all") {//если текущий пользователь
+			from = (UserSpisok[userLogin].getName() == messageList[i].getFromMessage()) ? "Меня" : messageList[i].getFromMessage();
 
+			if (messageList[i].getToMessage() == "all") 			//сообщение всем пользователям
+				cout << "от " << from << ": " << messageList[i].getText() << endl;
+		}
+	}
+	cout << "-----------------------------" << endl;
+}
+
+template<typename T> void Methods<T>::setAddMessage(){							//метод добавления сообщения в массив
 	string inputName;
 	string message;
 	cout << "Введите имя кому отправить сообщение:\n";
@@ -148,5 +156,7 @@ template<typename T> void Methods<T>::setAddMessage(){								 //метод добавлени
 	}
 }
 
-
-
+template<typename T> int Methods<T>::sizeUserSpisok() {					//количество зарегистрированных пользователей
+	int size = UserSpisok.size();
+	return size;
+}
