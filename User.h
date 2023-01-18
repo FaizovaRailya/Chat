@@ -9,6 +9,7 @@ class User {
 	string password_;
 
 public:
+	User() = default;
 	User(const string& name, const string& login, const string& password);
 	~User() = default;
 	string& getName();

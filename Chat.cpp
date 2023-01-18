@@ -14,28 +14,21 @@ int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	Methods<string> methods;
-	//methods.getCurrentUser() = nullptr;
 	bool f = true;
 	while (f) {
-
 		char a;
 		cout << "Количество пользователей: " << methods.sizeUserSpisok() << endl;
 		cout << "------Введите действие:------\n1 - вход\n2 - регистрация\n0 - выход\n";
 		cin >> a;
 		cin.ignore(100, '\n');
 		string log, pas;
-
 		switch (a) {
-		case '1':													//вход по логину и паролю
-			
+		case '1':													//вход по логину и паролю		
 			cout << "----Введите----\nЛогин: ";
 			cin >> log;
 			cout << "Пароль: ";
 			cin >> pas;
 			if (methods.UserSearch(log, pas)) {
-				 
-				 cout << methods.getCurrentUser()<< endl;
-				 cout << methods.getCurrentUser()->getLogin() << endl;
 				bool f1 = true;
 				while (f1) {
 					cout << "\n------Введите действиe:------\n1 - Прочитать сообщениe\n2 - Написать сообщение\n0 - Назад\n";
@@ -54,15 +47,12 @@ int main() {
 							cin >> d;
 							cin.ignore(100, '\n');
 
-							switch (d)
-							{
+							switch (d)							{
 							case '1':
-								methods.PrintMess();
-								methods.setPrivateShowChat();    //обработать исключение!!!!!!!!!!!!!!!!!!!!!!!!!
+								methods.setPrivateShowChat();   //вызываем метод вывода личных сообщений  
 								continue;
 							case '2':
-								methods.PrintMess();
-								methods.setAllShowChat();		//обработать исключение!!!!!!!!!!!!!!!!!!!!!!!!! 
+								methods.setAllShowChat();		 //вызываем метод вывода общих сообщений
 							case '0':
 								continue;
 							default:
@@ -70,47 +60,42 @@ int main() {
 								break;
 							}
 						}
-						
 						break;
-
 					case '2':										//написать сообщение
 						methods.setAddMessage();
 						break;
-
-					case '0':										//выход
-						
+					case '0':										//назад
+						methods.currrenNull();
 						f1 = false;
-						continue;
+						break;
 					default:
 						cout << "Неверный ВВОД!\n" << endl;
 						break;
 					}
 				}
-			}
-			
+			}			
 			break;
-		case '2':								// регистрация нового пользователя
+		case '2':									// регистрация нового пользователя
 			try {
-				methods.NewUser();					//вызываем метод добавления нового пользователя
-				
+				methods.NewUser();					//вызываем метод добавления нового пользователя			
+				methods.currrenNull();
 			}
 			catch (exception& e) {
 				cout << e.what()<< endl;
 			}
-			
 			break;
 		case '0':
-			
 			f = false;
 			break;
-
 		default:
 			cout << "Неверный ВВОД!\n" << endl;
 			break;
-		}
-		
+		}		
 	}
+	//methods.clear();
+	//methods.PrintMess();
+	//cout << methods.getCurrentUser() << endl;
+	//methods.PrintMess();
 	
-	cout << methods.getCurrentUser() << endl;
 	return 0;
 }

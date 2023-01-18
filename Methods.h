@@ -9,17 +9,17 @@ template <typename T> class Methods {
 	vector<User> UserSpisok;				//список зарегистрированных пользователей
 	vector<Message> messageList;			//создаем вектор, который хранит сообщения в чате
 	shared_ptr<User> currentUser = nullptr; //указатель указывает на текущего пользователя
-	
 
 public:
-	
-
+	Methods() = default;
+	~Methods() = default;
+		
 	int userLogin = 0;									// для индекса текущего логина
-	shared_ptr<User>getCurrentUser()const;
-shared_ptr<User>getUserByLogin(string& login);
-//shared_ptr<User>getUserByName(string& name);
+	shared_ptr<User>getCurrentUser();
+	shared_ptr<User>getUserByLogin(string& login);
 
-	bool FindName(T name);							//проверка имени
+
+	bool FindName(T name);							    //проверка имени
 	bool FindLogin(T login);							//проверка логина
 	void NewUser();										//создание нового пользователя
 	bool UserSearch(T login, T password);				//поиск пользователя по логину и паролю
@@ -30,8 +30,9 @@ shared_ptr<User>getUserByLogin(string& login);
 	void setAllShowChat();								//чтение общих сообщений
 	void setAddMessage();								//добавление сообщения в массив
 	int sizeUserSpisok();								//количество зарегистрированных пользователей
-	
-	void PrintMess();
+	void currrenNull();
+	/*void PrintMess();
+	void clear();*/
 };
 
 class LoginExp : public exception {			//исключение если введен логин "all"

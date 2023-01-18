@@ -4,7 +4,7 @@
 using namespace std;
 
 template<typename T>
-shared_ptr<User> Methods<T>::getUserByLogin(string& login) // указатель на логин пользователя
+shared_ptr<User> Methods<T>::getUserByLogin(string& login)			// указатель на логин пользователя
 {
 	for (auto& user : UserSpisok)
 		if (login == user.getLogin())
@@ -22,16 +22,15 @@ shared_ptr<User> Methods<T>::getUserByLogin(string& login) // указатель на логин
 //}
 
 template<typename T>
-shared_ptr<User> Methods<T>::getCurrentUser() const
+shared_ptr<User> Methods<T>::getCurrentUser()
 {
-	return currentUser;
+	return currentUser  ;
 }
 
-
 template<typename T>
-bool Methods<T>::FindName(T name) {					//метод проверки имени
+bool Methods<T>::FindName(T name) {								     //метод проверки имени
 	bool j = false;
-	for (int i = 0; i < UserSpisok.size(); i++) {
+	for (size_t i = 0; i < UserSpisok.size(); i++) {
 		if (UserSpisok[i].getName() == name) {
 			j = true;
 			return j;
@@ -40,11 +39,10 @@ bool Methods<T>::FindName(T name) {					//метод проверки имени
 	}return j;
 }
 
-
 template<typename T>
 bool Methods<T>::FindLogin(T login) {								//метод проверки логина
 	bool j = false;
-	for (int i = 0; i < UserSpisok.size(); i++) {
+	for (size_t i = 0; i < UserSpisok.size(); i++) {
 		if (UserSpisok[i].getLogin() == login) {
 			j = true;
 			return j;
@@ -69,7 +67,6 @@ template<typename T> void Methods<T>::NewUser() {					//метод создания нового по
 		}
 		else {
 			n = false;
-
 		}
 	}
 
@@ -86,16 +83,15 @@ template<typename T> void Methods<T>::NewUser() {					//метод создания нового по
 		}
 		else {
 			l = false;
-			//currentUser = nullptr;
 		}
 	}
 	cout << "Пароль: ";
 	cin >> password;
 
-	User user(name, login, password);				//создаем объект класа User
+	User user(name, login, password);			//создаем объект класа User
 	UserSpisok.push_back(user);					// добавляем пользователя в массив
 	currentUser = make_shared<User>(user);		//создаем указатель на текущего пользователя
-	cout << currentUser << endl;
+	//cout << currentUser << endl;
 	cout << "Пользователь зарегистрирован!\n\n";
 }
 
@@ -106,12 +102,10 @@ bool Methods<T>::UserSearch(T login, T password) {					//метод поиска пользовате
 	while (i < UserSpisok.size()) {
 		string l = UserSpisok[i].getLogin();
 		string p = UserSpisok[i].getPassword();
-
-
 		if (login == l && password == p) {
-			cout << endl << "---------------------Пользователь: " << UserSpisok[i].getName() << " -----------------\n";
-			userLogin = i;
-			currentUser = getUserByLogin(login);   //указатель на зарегистрированного пользователя
+			cout << endl << "--------------------------Пользователь: " << UserSpisok[i].getName() << " ----------------------\n";
+			userLogin = i;							
+			currentUser = getUserByLogin(login);   //указатель на текущего пользователя
 			flag = true;
 			return flag;
 			break;
@@ -125,14 +119,14 @@ bool Methods<T>::UserSearch(T login, T password) {					//метод поиска пользовате
 }
 
 template<typename T> void Methods<T>::PrintNamesUsers() {				    //метод получения списка зарегестрированных пользователей
-	for (int i = 0; i < UserSpisok.size(); ++i) {
+	for (size_t i = 0; i < UserSpisok.size(); ++i) {
 		cout << UserSpisok[i].getName() << endl;
 	}
 }
 
 template<typename T> int Methods<T>::FindUserinUserSpisok(string name) {	//метод проверяет корректно ли введено имя
-	for (int i = 0; i < UserSpisok.size(); ++i) {
-		if (currentUser->getName() == name) {
+	for (size_t i = 0; i < UserSpisok.size(); ++i) {
+		if (UserSpisok[i].getName() == name) {
 			return i;
 		}
 	}return -1;
@@ -141,52 +135,39 @@ template<typename T> int Methods<T>::FindUserinUserSpisok(string name) {	//метод
 template<typename T>
 bool Methods<T>::IsEmpty() {												//метод проверки наличия сообщений
 	bool i = true;
-	for (int i = 0; i < messageList.size(); ++i) {
-		if (UserSpisok[userLogin].getName() == messageList[i].getFromMessage() || UserSpisok[userLogin].getName() == messageList[i].getToMessage())
-		i = false; 
-	}
-	return i;
+	if (messageList.size() > 0) { i = false; }	return i;
 }
 
 template<typename T> void Methods<T>::setPrivateShowChat() {				//метод чтения личных сообщений
 	string from;
 	string to;
 	cout << "--------------ЧАТ--------------\n";
-	cout << currentUser << endl;
-	cout << UserSpisok[userLogin].getName() << endl;
-	for (int i = 0; i < messageList.size(); ++i) {
+	for (size_t i = 0; i < messageList.size(); ++i) {
 		if (UserSpisok[userLogin].getName() == messageList[i].getFromMessage() || UserSpisok[userLogin].getName() == messageList[i].getToMessage()) {//если текущий пользователь
 			from = (UserSpisok[userLogin].getName() == messageList[i].getFromMessage()) ? "Меня" : messageList[i].getFromMessage();
 
 			to = (UserSpisok[userLogin].getName() == messageList[i].getToMessage()) ? "Мне" : messageList[i].getToMessage();
 			//если текущее имя равно to, то отправляем сообщение самому себе, если нет, то получаем имя пользователя и присваиваем его значение полю to
 
-
 			if (messageList[i].getToMessage() != "all")
 				cout << "от " << from << " кому " << to << ": " << messageList[i].getText() << endl;
 		}
 	}
-
 	cout << "-------------------------------" << endl;
-
-
 }
 
 template<typename T> void Methods<T>::setAllShowChat() {							// метод чтения общих сообщений
 	string from;
 	string to;
 	cout << "-----------ОБЩИЙ ЧАТ-----------\n";
-	for (int i = 0; i < messageList.size(); ++i) {
+	for (size_t i = 0; i < messageList.size(); ++i) {
 		if (UserSpisok[userLogin].getName() == messageList[i].getFromMessage() || UserSpisok[userLogin].getName() == messageList[i].getToMessage() || messageList[i].getToMessage() == "all") {//если текущий пользователь
 			from = (UserSpisok[userLogin].getName() == messageList[i].getFromMessage()) ? "Меня" : messageList[i].getFromMessage();
-
-			if (messageList[i].getToMessage() == "all") 			//сообщение всем пользователям
+			if (messageList[i].getToMessage() == "all") 						//сообщение всем пользователям
 				cout << "от " << from << ": " << messageList[i].getText() << endl;
 		}
 	}
-
 	cout << "-----------------------------" << endl;
-
 }
 
 template<typename T> void Methods<T>::setAddMessage() {							//метод добавления сообщения в массив
@@ -197,13 +178,13 @@ template<typename T> void Methods<T>::setAddMessage() {							//метод добавления
 	cout << "all - отправить всем\n";
 
 	cin >> inputName;
-	if (inputName == "all") {  //отправка всем пользователям
+	if (inputName == "all") {							  //отправка всем пользователям
 		cout << "Введите текст сообщения: \n";
-		cout << endl;
+		
 		getline(cin, message, '\n');
 		getline(cin, message, '\n');
 		messageList.push_back(Message(UserSpisok[userLogin].getName(), "all", message));
-		cout << "Сообщение разослано всем пользователям!\n";
+		cout << "Сообщение разослано всем пользователям!\n";	
 	}
 	else {													//отправка личных сообщений
 		int t = -1;
@@ -212,8 +193,7 @@ template<typename T> void Methods<T>::setAddMessage() {							//метод добавления
 			cout << "Пользователь с данным именем не найден\n";
 		}
 		else {
-			cout << "Введите текст сообщения: \n";
-			cout << endl;
+			cout << "Введите текст сообщения: \n";			
 			getline(cin, message, '\n');
 			getline(cin, message, '\n');
 			messageList.push_back(Message(UserSpisok[userLogin].getName(), inputName, message));
@@ -226,15 +206,29 @@ template<typename T> int Methods<T>::sizeUserSpisok() {					//количество зарегис
 	return size;
 }
 
-
 template<typename T>
-void Methods<T>::PrintMess()
-{
-	for (int i = 0; i < messageList.size(); ++i) {
-		cout << messageList[i].getFromMessage() << " ";
-		cout << messageList[i].getToMessage() << " ";
-		cout << messageList[i].getText() << endl;
-	}
+void Methods<T>::currrenNull(){
+	currentUser = nullptr;
 }
+
+//template<typename T>
+//void Methods<T>::PrintMess()
+//{
+//	for (int i = 0; i < messageList.size(); ++i) {
+//		cout << "вектор:";
+//		cout << messageList[i].getFromMessage() << " ";
+//		cout << messageList[i].getToMessage() << " ";
+//		cout << messageList[i].getText() << endl;
+//	}
+//}
+//
+//template<typename T>
+//void Methods<T>::clear()
+//{
+//	UserSpisok.clear();
+//	messageList.clear();
+//	vector<User>().swap(UserSpisok);
+//	vector<Message>().swap(messageList);
+//}
 
 

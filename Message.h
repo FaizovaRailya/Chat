@@ -7,6 +7,7 @@ class Message {
 	string fromMessage_;
 	string toMessage_;
 public:
+	Message() = default;
 	Message(const string& fromMessage, const string& toMessage, const string& text);
 	~Message() = default;
 	string& getText();
