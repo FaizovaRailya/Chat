@@ -3,11 +3,14 @@
 #include "Message.h"
 using namespace std;
 
-User::User(string name, string login, string password) {
+User::User(const string& name, const string& login, const string& password) {
 	name_ = name;
 	login_ = login;
 	password_ = password;
+	 
 }
+
+
 
 string& User::getName() {
 	return name_;

@@ -14,25 +14,31 @@ int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	Methods<string> methods;
+	//methods.getCurrentUser() = nullptr;
 	bool f = true;
 	while (f) {
+
 		char a;
 		cout << "Количество пользователей: " << methods.sizeUserSpisok() << endl;
-		cout << "------Введиде действие:------\n1 - вход\n2 - регистрация\n0 - выход\n";
+		cout << "------Введите действие:------\n1 - вход\n2 - регистрация\n0 - выход\n";
 		cin >> a;
 		cin.ignore(100, '\n');
 		string log, pas;
 
 		switch (a) {
 		case '1':													//вход по логину и паролю
+			
 			cout << "----Введите----\nЛогин: ";
 			cin >> log;
 			cout << "Пароль: ";
 			cin >> pas;
 			if (methods.UserSearch(log, pas)) {
+				 
+				 cout << methods.getCurrentUser()<< endl;
+				 cout << methods.getCurrentUser()->getLogin() << endl;
 				bool f1 = true;
 				while (f1) {
-					cout << "\n------Введите действиe:------\n1 - Прочитать сообщениe\n2 - Написать сообщение\n0 - Выйти\n";
+					cout << "\n------Введите действиe:------\n1 - Прочитать сообщениe\n2 - Написать сообщение\n0 - Назад\n";
 					char b;
 					cin >> b;
 					cin.ignore(100, '\n');
@@ -43,7 +49,7 @@ int main() {
 							cout << "У вас еще нет входящих сообщений!\n" << endl;
 						}
 						else {
-							cout << "\n------Введите действиe:------\n1 - Личные\n2 - Общие\n0 - Выйти\n";
+							cout << "\n------Введите действиe:------\n1 - Личные\n2 - Общие\n0 - Назад\n";
 							char d;
 							cin >> d;
 							cin.ignore(100, '\n');
@@ -51,10 +57,12 @@ int main() {
 							switch (d)
 							{
 							case '1':
-								methods.setPrivateShowChat();
+								methods.PrintMess();
+								methods.setPrivateShowChat();    //обработать исключение!!!!!!!!!!!!!!!!!!!!!!!!!
 								continue;
 							case '2':
-								methods.setAllShowChat();
+								methods.PrintMess();
+								methods.setAllShowChat();		//обработать исключение!!!!!!!!!!!!!!!!!!!!!!!!! 
 							case '0':
 								continue;
 							default:
@@ -62,6 +70,7 @@ int main() {
 								break;
 							}
 						}
+						
 						break;
 
 					case '2':										//написать сообщение
@@ -69,6 +78,7 @@ int main() {
 						break;
 
 					case '0':										//выход
+						
 						f1 = false;
 						continue;
 					default:
@@ -77,16 +87,20 @@ int main() {
 					}
 				}
 			}
+			
 			break;
 		case '2':								// регистрация нового пользователя
 			try {
 				methods.NewUser();					//вызываем метод добавления нового пользователя
+				
 			}
 			catch (exception& e) {
-				cout << e.what();
+				cout << e.what()<< endl;
 			}
+			
 			break;
 		case '0':
+			
 			f = false;
 			break;
 
@@ -94,6 +108,9 @@ int main() {
 			cout << "Неверный ВВОД!\n" << endl;
 			break;
 		}
+		
 	}
+	
+	cout << methods.getCurrentUser() << endl;
 	return 0;
 }
