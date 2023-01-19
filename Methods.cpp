@@ -4,7 +4,7 @@
 using namespace std;
 
 template<typename T>
-shared_ptr<User> Methods<T>::getUserByLogin(string& login)			// указатель на логин пользователя
+shared_ptr<User> Methods<T>::getUserByLogin(string& login)		// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° Р»РѕРіРёРЅ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 {
 	for (auto& user : UserSpisok)
 		if (login == user.getLogin())
@@ -13,7 +13,7 @@ shared_ptr<User> Methods<T>::getUserByLogin(string& login)			// указатель на лог
 }
 
 //template<typename T>
-//shared_ptr<User> Methods<T>::getUserByName(string& name)		// указатель на имя пользователя
+//shared_ptr<User> Methods<T>::getUserByName(string& name)		// СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 //{
 //	for (auto& user : UserSpisok)
 //		if (name == user.getName())
@@ -28,7 +28,7 @@ shared_ptr<User> Methods<T>::getCurrentUser()
 }
 
 template<typename T>
-bool Methods<T>::FindName(T name) {								     //метод проверки имени
+bool Methods<T>::FindName(T name) {							//РјРµС‚РѕРґ РїСЂРѕРІРµСЂРєРё РёРјРµРЅРё
 	bool j = false;
 	for (size_t i = 0; i < UserSpisok.size(); i++) {
 		if (UserSpisok[i].getName() == name) {
@@ -40,7 +40,7 @@ bool Methods<T>::FindName(T name) {								     //метод проверки имени
 }
 
 template<typename T>
-bool Methods<T>::FindLogin(T login) {								//метод проверки логина
+bool Methods<T>::FindLogin(T login) {							//РјРµС‚РѕРґ РїСЂРѕРІРµСЂРєРё Р»РѕРіРёРЅР°
 	bool j = false;
 	for (size_t i = 0; i < UserSpisok.size(); i++) {
 		if (UserSpisok[i].getLogin() == login) {
@@ -51,61 +51,61 @@ bool Methods<T>::FindLogin(T login) {								//метод проверки логина
 	}return j;
 }
 
-template<typename T> void Methods<T>::NewUser() {					//метод создания нового пользователя
+template<typename T> void Methods<T>::NewUser() {					//РјРµС‚РѕРґ СЃРѕР·РґР°РЅРёСЏ РЅРѕРІРѕРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 	string name, login, password;
-	cout << "---- Введите данные для регистрации ----\n";
-	cout << "Имя: ";
+	cout << "---- Р’РІРµРґРёС‚Рµ РґР°РЅРЅС‹Рµ РґР»СЏ СЂРµРіРёСЃС‚СЂР°С†РёРё ----\n";
+	cout << "РРјСЏ: ";
 	bool n = true;
 	while (n) {
 		cin >> name;
-		if (name == "all") {			// исключение
+		if (name == "all") {			// РёСЃРєР»СЋС‡РµРЅРёРµ
 			throw NameExp();
 		}
 		if (FindName(name)) {
-			cout << "Данное имя уже занято выберите другое!\n\n";
-			cout << "------- Введите -------\nИмя: ";
+			cout << "Р”Р°РЅРЅРѕРµ РёРјСЏ СѓР¶Рµ Р·Р°РЅСЏС‚Рѕ РІС‹Р±РµСЂРёС‚Рµ РґСЂСѓРіРѕРµ!\n\n";
+			cout << "------- Р’РІРµРґРёС‚Рµ -------\nРРјСЏ: ";
 		}
 		else {
 			n = false;
 		}
 	}
 
-	cout << "Логин: ";
+	cout << "Р›РѕРіРёРЅ: ";
 	bool l = true;
 	while (l) {
 		cin >> login;
-		if (login == "all") {       // исключение
+		if (login == "all") {      		 // РёСЃРєР»СЋС‡РµРЅРёРµ
 			throw LoginExp();
 		}
 		if (FindLogin(login)) {
-			cout << "Данный логин уже занят выберите другой!\n\n";
-			cout << "------- Введите -------\nЛогин: ";
+			cout << "Р”Р°РЅРЅС‹Р№ Р»РѕРіРёРЅ СѓР¶Рµ Р·Р°РЅСЏС‚ РІС‹Р±РµСЂРёС‚Рµ РґСЂСѓРіРѕР№!\n\n";
+			cout << "------- Р’РІРµРґРёС‚Рµ -------\nР›РѕРіРёРЅ: ";
 		}
 		else {
 			l = false;
 		}
 	}
-	cout << "Пароль: ";
+	cout << "РџР°СЂРѕР»СЊ: ";
 	cin >> password;
 
-	User user(name, login, password);			//создаем объект класа User
-	UserSpisok.push_back(user);					// добавляем пользователя в массив
-	currentUser = make_shared<User>(user);		//создаем указатель на текущего пользователя
+	User user(name, login, password);			//СЃРѕР·РґР°РµРј РѕР±СЉРµРєС‚ РєР»Р°СЃР° User
+	UserSpisok.push_back(user);				// РґРѕР±Р°РІР»СЏРµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РІ РјР°СЃСЃРёРІ
+	currentUser = make_shared<User>(user);			//СЃРѕР·РґР°РµРј СѓРєР°Р·Р°С‚РµР»СЊ РЅР° С‚РµРєСѓС‰РµРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 	//cout << currentUser << endl;
-	cout << "Пользователь зарегистрирован!\n\n";
+	cout << "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅ!\n\n";
 }
 
 template<typename T>
-bool Methods<T>::UserSearch(T login, T password) {					//метод поиска пользователя по логину и паролю	
+bool Methods<T>::UserSearch(T login, T password) {					//РјРµС‚РѕРґ РїРѕРёСЃРєР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РїРѕ Р»РѕРіРёРЅСѓ Рё РїР°СЂРѕР»СЋ	
 	int i = 0;
 	bool flag = false;
 	while (i < UserSpisok.size()) {
 		string l = UserSpisok[i].getLogin();
 		string p = UserSpisok[i].getPassword();
 		if (login == l && password == p) {
-			cout << endl << "--------------------------Пользователь: " << UserSpisok[i].getName() << " ----------------------\n";
+			cout << endl << "--------------------------РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ: " << UserSpisok[i].getName() << " ----------------------\n";
 			userLogin = i;							
-			currentUser = getUserByLogin(login);   //указатель на текущего пользователя
+			currentUser = getUserByLogin(login);   //СѓРєР°Р·Р°С‚РµР»СЊ РЅР° С‚РµРєСѓС‰РµРіРѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 			flag = true;
 			return flag;
 			break;
@@ -113,18 +113,18 @@ bool Methods<T>::UserSearch(T login, T password) {					//метод поиска пользовате
 		else { ++i; }
 	}
 	if (flag == false) {
-		cout << "\nНеверный логин или пароль!!!\n";
+		cout << "\nРќРµРІРµСЂРЅС‹Р№ Р»РѕРіРёРЅ РёР»Рё РїР°СЂРѕР»СЊ!!!\n";
 	}
 	return flag;
 }
 
-template<typename T> void Methods<T>::PrintNamesUsers() {				    //метод получения списка зарегестрированных пользователей
+template<typename T> void Methods<T>::PrintNamesUsers() {				 //РјРµС‚РѕРґ РїРѕР»СѓС‡РµРЅРёСЏ СЃРїРёСЃРєР° Р·Р°СЂРµРіРµСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
 	for (size_t i = 0; i < UserSpisok.size(); ++i) {
 		cout << UserSpisok[i].getName() << endl;
 	}
 }
 
-template<typename T> int Methods<T>::FindUserinUserSpisok(string name) {	//метод проверяет корректно ли введено имя
+template<typename T> int Methods<T>::FindUserinUserSpisok(string name) {	        //РјРµС‚РѕРґ РїСЂРѕРІРµСЂСЏРµС‚ РєРѕСЂСЂРµРєС‚РЅРѕ Р»Рё РІРІРµРґРµРЅРѕ РёРјСЏ
 	for (size_t i = 0; i < UserSpisok.size(); ++i) {
 		if (UserSpisok[i].getName() == name) {
 			return i;
@@ -133,67 +133,67 @@ template<typename T> int Methods<T>::FindUserinUserSpisok(string name) {	//метод
 }
 
 template<typename T>
-bool Methods<T>::IsEmpty() {												//метод проверки наличия сообщений
+bool Methods<T>::IsEmpty() {								//РјРµС‚РѕРґ РїСЂРѕРІРµСЂРєРё РЅР°Р»РёС‡РёСЏ СЃРѕРѕР±С‰РµРЅРёР№
 	bool i = true;
 	if (messageList.size() > 0) { i = false; }	return i;
 }
 
-template<typename T> void Methods<T>::setPrivateShowChat() {				//метод чтения личных сообщений
+template<typename T> void Methods<T>::setPrivateShowChat() {				//РјРµС‚РѕРґ С‡С‚РµРЅРёСЏ Р»РёС‡РЅС‹С… СЃРѕРѕР±С‰РµРЅРёР№
 	string from;
 	string to;
-	cout << "--------------ЧАТ--------------\n";
+	cout << "--------------Р§РђРў--------------\n";
 	for (size_t i = 0; i < messageList.size(); ++i) {
-		if (UserSpisok[userLogin].getName() == messageList[i].getFromMessage() || UserSpisok[userLogin].getName() == messageList[i].getToMessage()) {//если текущий пользователь
-			from = (UserSpisok[userLogin].getName() == messageList[i].getFromMessage()) ? "Меня" : messageList[i].getFromMessage();
+		if (UserSpisok[userLogin].getName() == messageList[i].getFromMessage() || UserSpisok[userLogin].getName() == messageList[i].getToMessage()) {//РµСЃР»Рё С‚РµРєСѓС‰РёР№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ
+			from = (UserSpisok[userLogin].getName() == messageList[i].getFromMessage()) ? "РњРµРЅСЏ" : messageList[i].getFromMessage();
 
-			to = (UserSpisok[userLogin].getName() == messageList[i].getToMessage()) ? "Мне" : messageList[i].getToMessage();
-			//если текущее имя равно to, то отправляем сообщение самому себе, если нет, то получаем имя пользователя и присваиваем его значение полю to
+			to = (UserSpisok[userLogin].getName() == messageList[i].getToMessage()) ? "РњРЅРµ" : messageList[i].getToMessage();
+			//РµСЃР»Рё С‚РµРєСѓС‰РµРµ РёРјСЏ СЂР°РІРЅРѕ to, С‚Рѕ РѕС‚РїСЂР°РІР»СЏРµРј СЃРѕРѕР±С‰РµРЅРёРµ СЃР°РјРѕРјСѓ СЃРµР±Рµ, РµСЃР»Рё РЅРµС‚, С‚Рѕ РїРѕР»СѓС‡Р°РµРј РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Рё РїСЂРёСЃРІР°РёРІР°РµРј РµРіРѕ Р·РЅР°С‡РµРЅРёРµ РїРѕР»СЋ to
 
 			if (messageList[i].getToMessage() != "all")
-				cout << "от " << from << " кому " << to << ": " << messageList[i].getText() << endl;
+				cout << "РѕС‚ " << from << " РєРѕРјСѓ " << to << ": " << messageList[i].getText() << endl;
 		}
 	}
 	cout << "-------------------------------" << endl;
 }
 
-template<typename T> void Methods<T>::setAllShowChat() {							// метод чтения общих сообщений
+template<typename T> void Methods<T>::setAllShowChat() {				   // РјРµС‚РѕРґ С‡С‚РµРЅРёСЏ РѕР±С‰РёС… СЃРѕРѕР±С‰РµРЅРёР№
 	string from;
 	string to;
-	cout << "-----------ОБЩИЙ ЧАТ-----------\n";
+	cout << "-----------РћР‘Р©РР™ Р§РђРў-----------\n";
 	for (size_t i = 0; i < messageList.size(); ++i) {
-		if (UserSpisok[userLogin].getName() == messageList[i].getFromMessage() || UserSpisok[userLogin].getName() == messageList[i].getToMessage() || messageList[i].getToMessage() == "all") {//если текущий пользователь
-			from = (UserSpisok[userLogin].getName() == messageList[i].getFromMessage()) ? "Меня" : messageList[i].getFromMessage();
-			if (messageList[i].getToMessage() == "all") 						//сообщение всем пользователям
-				cout << "от " << from << ": " << messageList[i].getText() << endl;
+		if (UserSpisok[userLogin].getName() == messageList[i].getFromMessage() || UserSpisok[userLogin].getName() == messageList[i].getToMessage() || messageList[i].getToMessage() == "all") {//РµСЃР»Рё С‚РµРєСѓС‰РёР№ РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ
+			from = (UserSpisok[userLogin].getName() == messageList[i].getFromMessage()) ? "РњРµРЅСЏ" : messageList[i].getFromMessage();
+			if (messageList[i].getToMessage() == "all") 						//СЃРѕРѕР±С‰РµРЅРёРµ РІСЃРµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРј
+				cout << "РѕС‚ " << from << ": " << messageList[i].getText() << endl;
 		}
 	}
 	cout << "-----------------------------" << endl;
 }
 
-template<typename T> void Methods<T>::setAddMessage() {							//метод добавления сообщения в массив
+template<typename T> void Methods<T>::setAddMessage() {						//РјРµС‚РѕРґ РґРѕР±Р°РІР»РµРЅРёСЏ СЃРѕРѕР±С‰РµРЅРёСЏ РІ РјР°СЃСЃРёРІ
 	string inputName;
 	string message;
-	cout << "Введите имя кому отправить сообщение:\n";
-	PrintNamesUsers();									  //выводим список пользователей
-	cout << "all - отправить всем\n";
+	cout << "Р’РІРµРґРёС‚Рµ РёРјСЏ РєРѕРјСѓ РѕС‚РїСЂР°РІРёС‚СЊ СЃРѕРѕР±С‰РµРЅРёРµ:\n";
+	PrintNamesUsers();					//РІС‹РІРѕРґРёРј СЃРїРёСЃРѕРє РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
+	cout << "all - РѕС‚РїСЂР°РІРёС‚СЊ РІСЃРµРј\n";
 
 	cin >> inputName;
-	if (inputName == "all") {							  //отправка всем пользователям
-		cout << "Введите текст сообщения: \n";
+	if (inputName == "all") {				//РѕС‚РїСЂР°РІРєР° РІСЃРµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРј
+		cout << "Р’РІРµРґРёС‚Рµ С‚РµРєСЃС‚ СЃРѕРѕР±С‰РµРЅРёСЏ: \n";
 		
 		getline(cin, message, '\n');
 		getline(cin, message, '\n');
 		messageList.push_back(Message(UserSpisok[userLogin].getName(), "all", message));
-		cout << "Сообщение разослано всем пользователям!\n";	
+		cout << "РЎРѕРѕР±С‰РµРЅРёРµ СЂР°Р·РѕСЃР»Р°РЅРѕ РІСЃРµРј РїРѕР»СЊР·РѕРІР°С‚РµР»СЏРј!\n";	
 	}
-	else {													//отправка личных сообщений
+	else {							//РѕС‚РїСЂР°РІРєР° Р»РёС‡РЅС‹С… СЃРѕРѕР±С‰РµРЅРёР№
 		int t = -1;
 		t = FindUserinUserSpisok(inputName);
 		if (t == -1) {
-			cout << "Пользователь с данным именем не найден\n";
+			cout << "РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ СЃ РґР°РЅРЅС‹Рј РёРјРµРЅРµРј РЅРµ РЅР°Р№РґРµРЅ\n";
 		}
 		else {
-			cout << "Введите текст сообщения: \n";			
+			cout << "Р’РІРµРґРёС‚Рµ С‚РµРєСЃС‚ СЃРѕРѕР±С‰РµРЅРёСЏ: \n";			
 			getline(cin, message, '\n');
 			getline(cin, message, '\n');
 			messageList.push_back(Message(UserSpisok[userLogin].getName(), inputName, message));
@@ -201,7 +201,7 @@ template<typename T> void Methods<T>::setAddMessage() {							//метод добавления
 	}
 }
 
-template<typename T> int Methods<T>::sizeUserSpisok() {					//количество зарегистрированных пользователей
+template<typename T> int Methods<T>::sizeUserSpisok() {						    //РєРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
 	int size = UserSpisok.size();
 	return size;
 }
@@ -215,7 +215,7 @@ void Methods<T>::currrenNull(){
 //void Methods<T>::PrintMess()
 //{
 //	for (int i = 0; i < messageList.size(); ++i) {
-//		cout << "вектор:";
+//		cout << "РІРµРєС‚РѕСЂ:";
 //		cout << messageList[i].getFromMessage() << " ";
 //		cout << messageList[i].getToMessage() << " ";
 //		cout << messageList[i].getText() << endl;
